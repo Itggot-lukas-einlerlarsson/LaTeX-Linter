@@ -7,6 +7,10 @@ usage is : ./latex-linter infile.tex [custom_rules.json]  [outfilename.tex] [ow]
 
 ow = overwrite
 
+Json file example:
+
+
+
 The default rules are the follwing:
 ## Comment rule:
   After %there is a space after so 
@@ -47,4 +51,6 @@ The default rules are the follwing:
   	  \begin{}
   	    \item
   	  \end{}
+	  
+More optional rules:
 
