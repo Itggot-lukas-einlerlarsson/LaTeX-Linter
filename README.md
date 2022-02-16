@@ -2,6 +2,7 @@
 A simple CLI program which analyses LaTeX files (*.tex)
 
 usage is : ./latex-linter infile.tex [custom_rules.json]  [outfilename.tex] [ow]
+	[] = optional
 
 The default rules are the follwing:
 ## Comment rule:
