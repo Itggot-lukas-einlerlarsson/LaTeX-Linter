@@ -5,6 +5,8 @@ usage is : ./latex-linter infile.tex [custom_rules.json]  [outfilename.tex] [ow]
 
 [] = optional
 
+ow = overwrite
+
 The default rules are the follwing:
 ## Comment rule:
   After %there is a space after so 
