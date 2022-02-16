@@ -6,13 +6,16 @@ The default rules are the follwing:
   After %there is a space after so 
   ex: 
   
-  	%comment -> % comment
+  	%comment
+	becomes:
+	  % comment
   
 ## Fullstop rule:
   After . in a row, split off the row and add the remainder as the next line
   ex
   
   	hello.alright.fine
+	becomes:
 	  hello.
       alright.
       fine.
@@ -20,12 +23,12 @@ The default rules are the follwing:
   There are an adjusteble amount of blank lines before a section
   ex:
  
- 	asdaskdla
-	\section{}
-	becomes
-	 asdasdad
+ 	 asdaskdla
+	  \section{}
+	becomes:
+	  asdasdad
 	
-	\section{}
+	  \section{}
       
 ## Indentation rule
   If code is in environment block, all must be indented with two spaces.
@@ -33,7 +36,8 @@ The default rules are the follwing:
   	\begin{}
   	\item
   	\end{}
-  	becomes:
+	becomes:
   	\begin{}
   		\item
   	\end{}
+
