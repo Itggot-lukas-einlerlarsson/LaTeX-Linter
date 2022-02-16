@@ -38,6 +38,6 @@ The default rules are the follwing:
   	  \end{}
 	becomes:
   	  \begin{}
-  		  \item
+  	    \item
   	  \end{}
 
