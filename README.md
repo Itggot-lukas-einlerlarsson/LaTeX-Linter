@@ -18,11 +18,12 @@ The default rules are the follwing:
   After . in a row, split off the row and add the remainder as the next line
   ex
   
-  	  hello.alright.fine
+  	  volleyball. basketball. wierdog. sports.
 	becomes:
-	  hello.
-      alright.
-      fine.
+	  volleyball.
+      basketball.
+      wierdog.
+      sports.
 ## Blank space rule:
   There are an adjusteble amount of blank lines before a section
   ex:
