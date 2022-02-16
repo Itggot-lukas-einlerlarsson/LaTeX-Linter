@@ -42,7 +42,7 @@ The default rules are the follwing:
 	  \section{}
       
 ## Indentation rule
-  If code is in environment block, all must be indented with two spaces.
+  If code is in environment block, all data are be indented with two spaces. \begin{document} is an exception
   
   	  \begin{}
   	  \item
