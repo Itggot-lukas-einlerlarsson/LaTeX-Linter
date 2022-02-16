@@ -6,7 +6,7 @@ The default rules are the follwing:
   After %there is a space after so 
   ex: 
   
-  	 %comment
+  	  %comment
 	becomes:
 	  % comment
   
@@ -14,7 +14,7 @@ The default rules are the follwing:
   After . in a row, split off the row and add the remainder as the next line
   ex
   
-  	 hello.alright.fine
+  	  hello.alright.fine
 	becomes:
 	  hello.
       alright.
@@ -33,11 +33,11 @@ The default rules are the follwing:
 ## Indentation rule
   If code is in environment block, all must be indented with two spaces.
   
-  	\begin{}
-  	\item
-  	\end{}
+  	  \begin{}
+  	  \item
+  	  \end{}
 	becomes:
-  	\begin{}
-  		\item
-  	\end{}
+  	  \begin{}
+  		  \item
+  	  \end{}
 
