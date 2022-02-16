@@ -24,9 +24,9 @@ The default rules are the follwing:
   After . in a row, split off the row and add the remainder as the next line
   ex
   
-  	  volleyball.... basketball. wienerdog. SPORTS.
+  	  volleyball....basketball. wienerdog. SPORTS.
 	becomes:
-	  volleyball.... basketball.
+	  volleyball....basketball.
       wienerdog.
       SPORTS.
 ## Blank space rule:
