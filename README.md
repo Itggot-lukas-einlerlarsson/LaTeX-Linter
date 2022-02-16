@@ -6,7 +6,7 @@ The default rules are the follwing:
   After %there is a space after so 
   ex: 
   
-  	%comment
+  	 %comment
 	becomes:
 	  % comment
   
@@ -14,7 +14,7 @@ The default rules are the follwing:
   After . in a row, split off the row and add the remainder as the next line
   ex
   
-  	hello.alright.fine
+  	 hello.alright.fine
 	becomes:
 	  hello.
       alright.
@@ -23,7 +23,7 @@ The default rules are the follwing:
   There are an adjusteble amount of blank lines before a section
   ex:
  
- 	 asdaskdla
+ 	  asdaskdla
 	  \section{}
 	becomes:
 	  asdasdad
