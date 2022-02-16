@@ -26,7 +26,8 @@ The default rules are the follwing:
   
   	  volleyball....basketball. wienerdog. SPORTS.
 	becomes:
-	  volleyball....basketball.
+	  volleyball....
+      basketball.
       wienerdog.
       SPORTS.
 ## Blank space rule:
