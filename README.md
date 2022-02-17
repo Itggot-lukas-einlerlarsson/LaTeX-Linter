@@ -11,7 +11,7 @@ Json file example:
 
 
 
-The default rules are the follwing:
+# Default rules
 ## Comment rule:
   After %there is a space after so 
   ex: 
@@ -52,5 +52,5 @@ The default rules are the follwing:
   	    \item
   	  \end{}
 	  
-More optional rules:
+# (Optional extra rules)
 
