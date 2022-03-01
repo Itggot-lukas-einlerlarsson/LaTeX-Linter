@@ -47,8 +47,18 @@ ow = overwrite
   	  \begin{}
   	    \item
   	  \end{}
-	  
-# (Optional extra rules)
+
 
 ## Json file format:
-[Json file example here with settings and rules]
+
+	{
+ 	  "comment_rule": true,
+	  "fullstop_rule": true,
+	  "indentation_rule": false,
+ 	  "blank_lines_rule": false,
+	  "blank_lines_amount": 5
+	}
+
+	  
+# (Optional extra rules)
+[Ev. More rules here]
