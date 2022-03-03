@@ -1,0 +1,7 @@
+{
+  "comment_rule": true,
+  "fullstop_rule": true,
+  "indentation_rule": true,
+  "blank_lines_rule": true,
+  "blank_lines_amount": 5
+}
