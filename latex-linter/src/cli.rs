@@ -55,9 +55,12 @@ impl CLI {
 
         //creates linter and formats file content
         let mut lonter = LaTeXLinter::new(content, &rules, blank_lines_amount);
-        let formatted_content = lonter.format_file();
+        let (formatted_content, error_amount) = lonter.format_file();
 
-        //creates file and writes it
+        //prints error amount found
+        println!("found and fixed {} errors.", error_amount);
+
+        //creates file and writes the formatted content to file
         CLI::write_file(self, formatted_content)
     }
 
@@ -104,7 +107,7 @@ impl CLI {
     /// This function checks whether the user want the original file overwritten or not and then writes the outputfile.
     fn write_file(&self, formatted_content : &Vec<String>) {
         let mut original_filename = String::from(&self.filename);
-        let outfile : String; 
+        let outfile : String;
         if self.arguments[self.arguments.len()-1] == "ow".to_string() {
             outfile = String::from(&self.filename);
         } else {
@@ -116,6 +119,6 @@ impl CLI {
         for line in formatted_content  {
             write!(output, "{}" , line).expect("Unable to write to file");
         }
-        println!("{} was created in Current working directory.", outfile)
+        println!("  -> {} was created in Current working directory.", outfile)
     }
 }

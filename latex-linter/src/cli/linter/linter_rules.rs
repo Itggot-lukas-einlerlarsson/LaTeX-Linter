@@ -39,29 +39,34 @@ impl LinterRules {
         }
     }
 
-    pub fn indentation_iteration(&self, contents : &mut Vec<String>){
+    pub fn indentation_iteration(&mut self, contents : &mut Vec<String>){
         // loop - variables:
         let mut line_nr = 0;
         let mut indentation_amount = 0;
         // Loop - applying rules
         while line_nr < contents.len() {
             LinterRules::remove_indentation(&mut contents[line_nr]);
-            LinterRules::indentation_rule(&mut contents[line_nr], &mut indentation_amount);
+            LinterRules::indentation_rule(self, &mut contents[line_nr], &mut indentation_amount);
             line_nr += 1
         }
     }
 
-    pub fn blank_lines_iteration(&self, contents : &mut Vec<String>, amount : usize){
+    pub fn blank_lines_iteration(&mut self, contents : &mut Vec<String>, amount : usize){
         // loop - variables:
         let mut line_nr = 1;
         // Loop - applying rules
         while line_nr < contents.len() {
             // check if it applies:
             if LinterRules::blank_line_rule(&contents[line_nr]) {
+                self.error_counter += 1;
                 LinterRules::add_blank_lines(contents, &mut line_nr, amount)
             }
             line_nr += 1
         }
+    }
+
+    pub fn get_error_amount(&self) -> usize{
+        self.error_counter
     }
 
 
@@ -87,31 +92,52 @@ impl LinterRules {
     /// This function deals with fullstops
     /// dotdotdots... and numbers like 20,123,203.123 are exceptions
     fn fullstop_rule(line : &mut String){
+        if line.starts_with('%') {
+            return
+        }
+        if line.contains('%') {
+            let index = line.find('%').unwrap_or(line.len());
+            let mut rest_str : String = line.split_off(index);
+            rest_str.insert(1, ' ');
+            let temp = line.replace(". ", ".\n");
+            *line = String::from(temp.to_string() + &rest_str);
+            return
+        }
         let temp = line.replace(". ", ".\n");
         *line = String::from(&temp);
     }
 
     /// This function checks if we are in an environment block
-    fn indentation_rule(line : &mut String, indentation_amount : &mut usize) {
-        if line.contains("end{"){
-            if *indentation_amount > 0 {
-                *indentation_amount -= 1;
+    fn indentation_rule(&mut self, line : &mut String, indentation_amount : &mut usize) {
+        //indentation lists:
+        let black_list = vec!["begin{document"]; //exception
+        let white_list_decrease = vec!["end{"]; //decrease indentation amount
+        let white_list_increase = vec!["begin{"]; //increase indentation amount
+        for end_str in white_list_decrease {
+            if line.contains(end_str){
+                if *indentation_amount > 0 {
+                    *indentation_amount -= 1;
+                }
             }
         }
-        //indent
-        LinterRules::indent(line, *indentation_amount);
-        //if an indention exception
-        if line.contains("begin{document") {
-            return
+        LinterRules::indent(self, line, *indentation_amount);
+        for exception_str in black_list {
+            if line.contains(exception_str) {
+                return
+            }
         }
-        if line.contains("begin{") {
-            *indentation_amount += 1;
+        for begin_str in white_list_increase {
+            if line.contains(begin_str) {
+                *indentation_amount += 1;
+            }
         }
     }
 
     /// This function adds an indentation block if the line is in an environment block
-    fn indent(line : &mut String, amount : usize){
-        //indentation variable
+    fn indent(&mut self, line : &mut String, amount : usize){
+        if amount > 1 {
+            self.error_counter += 1;
+        }
         let indent_str = "    ";
         let mut indentation : String = String::new();
         let mut count = 0;
@@ -129,26 +155,19 @@ impl LinterRules {
         }
     }
 
-    ///This function adds blank lines to previous lines if it starts a new section
-    /// returns if new section/chapter etc is found
+    ///This function checks if new section/chapter etc is found
     fn blank_line_rule(line : &String) -> bool {
-        if line.contains("section{"){
-             return true;
-        } else if line.contains("section*"){
-             return true;
-        } else if line.contains("subsection{"){
-             return true;
-        } else if line.contains("subsection*"){
-             return true;
-        } else if line.contains("subsubsection{"){
-             return true;
-        } else if line.contains("subsubsection*"){
-             return true;
-        } else {
-            return false
+        let mut apply_blank_lines = false;
+        let white_list : Vec<&str> = vec!["section{", "section*", "subsection{", "subsection*","subsubsection{", "subsubsection*"];
+        for section_str in white_list {
+            if line.contains(section_str) {
+                apply_blank_lines = true;
+            }
         }
+        return apply_blank_lines;
     }
 
+    /// This function checks how many blanklines before and adds the rest.
     fn add_blank_lines(contents : &mut Vec<String>, line_nr : &mut usize, amount_of_newlines : usize) {
         let mut current_amount = 0;
         let mut index = *line_nr-1;
@@ -161,7 +180,7 @@ impl LinterRules {
             index -= 1;
             count += 1;
         }
-        // add rest of blanklines
+        // add rest of blanklines (if there is any)
         while current_amount < amount_of_newlines {
                 contents.insert(*line_nr, "\n".to_string());
                 *line_nr += 1;
