@@ -2,18 +2,38 @@ mod linter;
 use linter::Linter as LaTeXLinter;
 mod jsonhandler;
 use jsonhandler::JsonHandler;
-use std::env;
 use std::fs::File;
 use std::path::Path;
 use std::ffi::OsStr;
 use std::io::{Write, BufReader, BufRead};
+use clap::Parser;
+
+/// LaTeXLinter
+#[derive(Parser, Debug)]
+#[clap(author, version, about, long_about = None)]
+struct Args {
+    /// Name of the file to format
+    #[clap(short, long)]
+    file: String,
+
+    /// add Customized settings via json file or use 'default' settings
+    #[clap(short, long)]
+    json_file: String,
+
+    /// Overwrite option
+    #[clap(short, long)]
+    overwrite: bool,
+}
+impl Default for Args {
+    fn default () -> Args {
+        return Args{file : "nonexistant.file".to_string(), json_file : "default".to_string(), overwrite : false}
+    }
+}
 
 /// This class takes care of user input and output.
 
 pub struct CLI {
-    filename: String,
-    arguments : Vec<String>,
-    usage_string : String,
+    args : Args,
 }
 
 impl CLI {
@@ -21,24 +41,15 @@ impl CLI {
     /// Contstructor
     pub fn new() -> CLI {
         return CLI {
-            filename:  String::new(),
-            arguments: Vec::new(),
-            usage_string: "Usage: ./latex-linter infile.tex [rules.json] [ow]".to_string()
+            args: Args::default(),
         }
     }
 
     /// This function reads all the commandline arguments and checks if too many were put in.
     pub fn parse_args(&mut self) {
-        for arg in env::args().skip(1) {
-            self.arguments.push(arg)
-        }
-        if self.arguments.len() <1 || self.arguments.len() > 3 {
-            eprintln!("too few/many arguments. \n{}", self.usage_string);
-            std::process::exit(1)
-        }
+        self.args = Args::parse();
         //check extension:
-        self.filename = String::from(&self.arguments[0]);
-        let extension = Path::new(&self.filename).extension().and_then(OsStr::to_str);
+        let extension = Path::new(&self.args.file).extension().and_then(OsStr::to_str);
         if extension != Some("tex") && extension != Some("bib") && extension != Some("tikz") {
             eprintln!("Input file is not valid. Valid files are LaTeX files only('.tex', '.bib', '.tikz').");
             std::process::exit(1)
@@ -71,12 +82,12 @@ impl CLI {
     /// This function first checks if a file exists and then reads it line by line
     fn read_file(&self) -> Vec<String> {
         //checks if file exists
-        if Path::new(&self.filename).exists() == false {
-            eprintln!("Couldn't locate file: '{}'", self.filename);
+        if Path::new(&self.args.file).exists() == false {
+            eprintln!("Couldn't locate file: '{}'", self.args.file);
             std::process::exit(1);
         }
         //open files and reads it.
-        let open_file = File::open(&self.filename).unwrap();
+        let open_file = File::open(&self.args.file).unwrap();
         let reader = BufReader::new(open_file);
         let mut content_lines : Vec<String> = Vec::new();
         for line in reader.lines(){
@@ -90,26 +101,26 @@ impl CLI {
     fn get_settings(&self) -> (Vec<String>, usize) {
         let rules : Vec<String>;
         let blank_lines_amount : usize = 1;
-        if self.arguments.len() == 1 || self.arguments[1].contains(".json") == false {
+        if self.args.json_file == "default" {
             //return default arguments in appropriate priority
             rules = vec!["fullstop_rule".to_string(), "comment_rule".to_string(), "indentation_rule".to_string(), "blank_lines_rule".to_string()];
             return (rules, blank_lines_amount);
         }
-        if self.arguments.len() > 1 && Path::new(&self.arguments[1]).exists() == false {
-            eprintln!("Couldn't locate file: '{}'", self.arguments[1]);
+        if self.args.json_file != "default" && (self.args.json_file.contains(".json") == false || Path::new(&self.args.json_file).exists() == false) {
+            eprintln!("Couldn't locate or fetch data from json-file: '{}'", self.args.json_file);
             std::process::exit(1);
         }
-        let parser = JsonHandler::new(&self.arguments[1]);
+        let parser = JsonHandler::new(&self.args.json_file);
         let (rules, blank_lines_amount) = JsonHandler::read_json(&parser);
         return (rules, blank_lines_amount);
     }
 
     /// This function checks whether the user want the original file overwritten or not and then writes the outputfile.
     fn write_file(&self, formatted_content : &Vec<String>) {
-        let mut original_filename = String::from(&self.filename);
+        let mut original_filename = String::from(&self.args.file);
         let outfile : String;
-        if self.arguments[self.arguments.len()-1] == "ow".to_string() {
-            outfile = String::from(&self.filename);
+        if self.args.overwrite {
+            outfile = String::from(&self.args.file);
         } else {
             let index = original_filename.find('.').unwrap();
             let extension = original_filename.split_off(index);

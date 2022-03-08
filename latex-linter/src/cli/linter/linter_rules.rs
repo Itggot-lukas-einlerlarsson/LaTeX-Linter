@@ -97,8 +97,13 @@ impl LinterRules {
         }
         if line.contains('%') {
             let index = line.find('%').unwrap_or(line.len());
-            let mut rest_str : String = line.split_off(index);
-            rest_str.insert(1, ' ');
+            let mut rest_str : String;
+            if line.contains("% ") {
+                rest_str = line.split_off(index);
+            } else {
+                rest_str = line.split_off(index);
+                rest_str.insert(1, ' ');
+            }
             let temp = line.replace(". ", ".\n");
             *line = String::from(temp.to_string() + &rest_str);
             return
