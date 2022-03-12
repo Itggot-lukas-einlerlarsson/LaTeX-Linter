@@ -8,6 +8,8 @@ or default: ./latex-linter -f infile.tex -j default [-o]
 
 o = overwrite
 
+also works: ./latex-linter --help 
+
 # Default rules
 ## Comment rule:
   After %there is a space after so 
