@@ -6,7 +6,7 @@ or default: ./latex-linter -f infile.tex -j default [-o]
 
 [] = optional
 
-ow = overwrite
+o = overwrite
 
 # Default rules
 ## Comment rule:
