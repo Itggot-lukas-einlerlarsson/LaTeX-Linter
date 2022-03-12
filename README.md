@@ -1,7 +1,8 @@
 # LaTeX-Linter
 A simple CLI program which analyses LaTeX files (*.tex)
 
-usage is : ./latex-linter infile.tex [custom_rules.json] [ow]
+usage is : ./latex-linter -f infile.tex -j custom_rules.json [-o]
+or default: ./latex-linter -f infile.tex -j default [-o]
 
 [] = optional
 
