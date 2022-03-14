@@ -37,7 +37,7 @@ These rules are all applied under the '-j default' option. If you want to custom
       wienerdog.
       SPORTS.
 ## Blank space rule:
-  There are an adjusteble amount of blank lines before a section (default are 1 blank line)
+  There are an adjusteble amount of blank lines before a section (default is 1 blank line)
   ex:
  
  	  asdaskdla
