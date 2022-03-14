@@ -1,14 +1,18 @@
 # LaTeX-Linter
 A simple CLI program which analyses LaTeX files (*.tex)
+	
+	latex-linter 1.4.0
+	LaTeXLinter
 
-usage is : ./latex-linter -f infile.tex -j custom_rules.json [-o]
-or default: ./latex-linter -f infile.tex -j default [-o]
+	USAGE:
+    latex-linter.exe [OPTIONS] --file <FILE> --json-file <JSON_FILE>
 
-[] = optional
-
-o = overwrite
-
-also works: ./latex-linter --help 
+	OPTIONS:
+    -f, --file <FILE>              Name of the file to format
+    -h, --help                     Print help information
+    -j, --json-file <JSON_FILE>    add Customized or use 'default' settings
+    -o, --overwrite                Overwrite the inputfile with formatted file
+    -V, --version                  Print version information
 
 # Default rules
 ## Comment rule:
