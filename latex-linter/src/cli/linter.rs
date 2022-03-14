@@ -1,7 +1,7 @@
 mod linter_rules;
 use linter_rules::LinterRules;
 
-/// #This struct acts an information expert of the settings, content, options
+/// #This class store the content and the settings of the LaTeX file but lets the LinterRules class act as an engine for the formatting.
 
 pub struct Linter {
     contents: Vec<String>,

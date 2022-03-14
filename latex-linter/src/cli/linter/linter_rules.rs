@@ -140,7 +140,7 @@ impl LinterRules {
 
     /// This function adds an indentation block if the line is in an environment block
     fn indent(&mut self, line : &mut String, amount : usize){
-        if amount > 1 {
+        if amount > 0 {
             self.error_counter += 1;
         }
         let indent_str = "    ";
@@ -179,7 +179,7 @@ impl LinterRules {
         let mut count = 0;
         // check how many blanklines before:
         while count < amount_of_newlines && index > 1 {
-            if contents[index] == "\r\n" || contents[index] == "\n" || contents[index].as_str().ends_with("\r\n\n"){
+            if contents[index] == "\r\n" || contents[index] == "\n"{
                 current_amount += 1;
             }
             index -= 1;
@@ -199,3 +199,67 @@ impl LinterRules {
         *line = new_line.to_string();
     }
 } // end implementation
+
+
+/*                  -----               Unit tests               -----                   */
+#[cfg(test)]
+mod tests {
+    // importing names from outer (for mod tests) scope.
+    use crate::cli::linter::LinterRules;
+
+    #[test]
+    fn test_comment_rule() {
+        let mut comment_string = String::from("comment %ok");
+        LinterRules::comment_rule(&mut comment_string);
+        assert_eq!("comment % ok".to_string(), comment_string);
+    }
+    #[test]
+    fn test_fullstop_rule() {
+        let mut fullstop_string = String::from("graasd. asdsgflk. foo::-23.23");
+        LinterRules::fullstop_rule(&mut fullstop_string);
+        assert_eq!("graasd.\nasdsgflk.\nfoo::-23.23".to_string(), fullstop_string);
+    }
+    #[test]
+    fn test_indentation_rule() {
+        let mut lr_test = LinterRules::new();
+        let mut indentation_amount : usize = 0;
+        let mut begin_string = String::from("begin{hello!}");
+        let mut end_string = String::from("end{hello!}");
+        let mut indentation_string = String::from("graasdmaraccas");
+        LinterRules::indentation_rule(&mut lr_test, &mut begin_string, &mut indentation_amount);
+        assert_eq!(indentation_amount, 1);
+        LinterRules::indentation_rule(&mut lr_test, &mut indentation_string, &mut indentation_amount);
+        LinterRules::indentation_rule(&mut lr_test, &mut end_string, &mut indentation_amount);
+        assert_eq!(indentation_amount, 0);
+        assert_eq!("    graasdmaraccas".to_string(), indentation_string);
+    }
+    #[test]
+    fn test_blank_lines_rule() {
+        let mut line_nr = 1;
+        let mut test_content : Vec<String> = vec!["ok very nice".to_string(), "subsubsection*{aha!}".to_string(), "i am inside this subsubsector, help pls".to_string()];
+        let apply_blank_lines = LinterRules::blank_line_rule(&mut test_content[line_nr]);
+        assert_eq!(apply_blank_lines, true);
+        LinterRules::add_blank_lines(&mut test_content, &mut line_nr, 3);
+        assert_eq!("ok very nice".to_string(), test_content[0]);
+        assert_eq!("\n".to_string(), test_content[1]);
+        assert_eq!("\n".to_string(), test_content[2]);
+        assert_eq!("\n".to_string(), test_content[3]);
+        assert_eq!("subsubsection*{aha!}".to_string(), test_content[4]);
+        assert_eq!("subsubsection*{aha!}".to_string(), test_content[line_nr]);
+        assert_eq!("i am inside this subsubsector, help pls".to_string(), test_content[5]);
+        assert_eq!(6, test_content.len());
+    }
+    #[test]
+    fn test_blank_lines_iteration() {
+        let mut lr_test = LinterRules::new();
+        let mut test_content : Vec<String> = vec!["ok very nice".to_string(), "subsubsection*{aha!}".to_string(), "i am inside this subsubsector, help pls".to_string()];
+        LinterRules::blank_lines_iteration(&mut lr_test, &mut test_content, 3);
+        assert_eq!("ok very nice".to_string(), test_content[0]);
+        assert_eq!("\n".to_string(), test_content[1]);
+        assert_eq!("\n".to_string(), test_content[2]);
+        assert_eq!("\n".to_string(), test_content[3]);
+        assert_eq!("subsubsection*{aha!}".to_string(), test_content[4]);
+        assert_eq!("i am inside this subsubsector, help pls".to_string(), test_content[5]);
+        assert_eq!(6, test_content.len());
+    }
+}

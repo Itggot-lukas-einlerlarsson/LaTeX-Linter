@@ -16,7 +16,7 @@ struct Args {
     #[clap(short, long)]
     file: String,
 
-    /// add Customized settings via json file or use 'default' settings
+    /// add Customized settings with json file or use 'default' settings
     #[clap(short, long)]
     json_file: String,
 
@@ -132,4 +132,4 @@ impl CLI {
         }
         println!("  -> {} was created in Current working directory.", outfile)
     }
-}
+} // end CLI implementation
