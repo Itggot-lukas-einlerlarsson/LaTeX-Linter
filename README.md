@@ -17,7 +17,7 @@ I coded this program when i studied software engineering(course PA1456 on BTH).
     -V, --version                  Print version information
 
 # Default rules 
-These rules are all applied under the '-j default' option. If you want to customize the formatting, read under the json 
+These rules are all applied under the '-j default' option. If you want to customize the formatting, read under the json example
 ## Comment rule:
   After %there is a space after so 
   ex: 
