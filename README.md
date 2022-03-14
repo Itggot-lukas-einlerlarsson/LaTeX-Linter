@@ -56,7 +56,7 @@ A simple CLI program which analyses LaTeX files (*.tex)
   	  \end{}
 
 
-## Json file format:
+## Json file format - ex:
 
 	{
  	  "comment_rule": true,
@@ -66,6 +66,3 @@ A simple CLI program which analyses LaTeX files (*.tex)
 	  "blank_lines_amount": 5
 	}
 
-	  
-# (Optional extra rules)
-[Ev. More rules here]
