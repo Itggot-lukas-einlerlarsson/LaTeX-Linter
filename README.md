@@ -37,7 +37,7 @@ These rules are all applied under the '-j default' option. If you want to custom
       wienerdog.
       SPORTS.
 ## Blank space rule:
-  There are an adjusteble amount of blank lines before a section
+  There are an adjusteble amount of blank lines before a section (default are 1 blank line)
   ex:
  
  	  asdaskdla
@@ -48,7 +48,7 @@ These rules are all applied under the '-j default' option. If you want to custom
 	  \section{}
       
 ## Indentation rule
-  If code is in environment block, all data are be indented with two spaces. \begin{document} is an exception
+  If code is in environment block, all data are be indented. \begin{document} is an exception
   
   	  \begin{}
   	  \item
