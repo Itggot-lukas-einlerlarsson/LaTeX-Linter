@@ -56,7 +56,7 @@ A simple CLI program which analyses LaTeX files (*.tex)
   	  \end{}
 
 
-## Json file format - ex:
+## Json file format:
 
 	{
  	  "comment_rule": true,
@@ -66,3 +66,11 @@ A simple CLI program which analyses LaTeX files (*.tex)
 	  "blank_lines_amount": 5
 	}
 
+	  
+# Installation
+You can either just download the source code and compile yourself with rust:
+	write 'cargo build --release' in the directory
+or you can download releases for Windows and linux under the releases tab.
+
+# Bill of Materials (dependencies)
+You can find all information about the third party components of my program(version, github etc) in the Cargo.toml file. 
