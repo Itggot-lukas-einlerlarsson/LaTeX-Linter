@@ -1,5 +1,6 @@
 # LaTeX-Linter
 This is a simple CLI program that analyses LaTeX files (*.tex, *.bib, *.tikz) and formats a copy (or overwrites if user wants)
+
 I coded this program when i studied software engineering(course PA1456 on BTH).
 	
 	latex-linter 1.4.0
@@ -16,7 +17,7 @@ I coded this program when i studied software engineering(course PA1456 on BTH).
     -V, --version                  Print version information
 
 # Default rules 
-These rules are all applied under the '-j default' option. If you want to customize it, read under the json 
+These rules are all applied under the '-j default' option. If you want to customize the formatting, read under the json 
 ## Comment rule:
   After %there is a space after so 
   ex: 
@@ -70,8 +71,10 @@ These rules are all applied under the '-j default' option. If you want to custom
 
 	  
 # Installation
-You can either just download the source code and compile yourself with rust:
-	write 'cargo build --release' in the directory
+You can either just download the source code and compile yourself with rust, use in directory:
+
+	'cargo build --release' 
+	
 or you can download releases for Windows and linux under the releases tab.
 
 # Bill of Materials (dependencies)
