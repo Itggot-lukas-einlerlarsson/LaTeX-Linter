@@ -1,5 +1,6 @@
 # LaTeX-Linter
-A simple CLI program which analyses LaTeX files (*.tex)
+This is a simple CLI program that analyses LaTeX files (*.tex, *.bib, *.tikz) and formats a copy (or overwrites if user wants)
+I coded this program when i studied software engineering(course PA1456 on BTH).
 	
 	latex-linter 1.4.0
 	LaTeXLinter
@@ -14,7 +15,8 @@ A simple CLI program which analyses LaTeX files (*.tex)
     -o, --overwrite                Overwrite the inputfile with formatted file
     -V, --version                  Print version information
 
-# Default rules
+# Default rules 
+These rules are all applied under the '-j default' option. If you want to customize it, read under the json 
 ## Comment rule:
   After %there is a space after so 
   ex: 
@@ -56,7 +58,7 @@ A simple CLI program which analyses LaTeX files (*.tex)
   	  \end{}
 
 
-## Json file format:
+## Customize format with Json file - example:
 
 	{
  	  "comment_rule": true,
