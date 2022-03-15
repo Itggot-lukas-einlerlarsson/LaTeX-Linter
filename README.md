@@ -75,7 +75,7 @@ You can either just download the source code and compile yourself with rust, use
 
 	'cargo build --release' 
 	
-or you can download releases for Windows and linux under the releases tab.
+The program is then placed in the CWD/target/release/ directory. You can also download releases for Windows and linux under the releases tab.
 
 # Bill of Materials (dependencies)
 You can find all information about the third party components of my program(version, github etc) in the Cargo.toml file. 
