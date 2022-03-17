@@ -79,3 +79,5 @@ The program is then placed in the CWD/target/release/ directory. You can also do
 
 # Bill of Materials (dependencies)
 You can find all information about the third party components of my program(version, github etc) in the Cargo.toml file. 
+
+###### Future improvements: create an option showing all the default rules
