@@ -1,5 +1,5 @@
 # LaTeX-Linter
-This is a simple CLI program that analyses LaTeX files (*.tex, *.bib, *.tikz) and formats a copy (or overwrites if user wants)
+This is a simple CLI program that analyses LaTeX files (*.tex, *.bib, *.tikz) and formats a copy of the indata(or overwrites if user wants)
 
 I coded this program when i studied software engineering(course PA1456 on BTH).
 	
