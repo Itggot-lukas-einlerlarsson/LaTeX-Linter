@@ -2,6 +2,7 @@
 This is a simple CLI program that analyses LaTeX files (*.tex, *.bib, *.tikz) and formats a copy of the indata(or overwrites if user wants)
 
 I coded this program when i studied software engineering(course PA1456 on BTH).
+	
 	./latex-linter -h
 	latex-linter 1.4.0
 	LaTeXLinter
