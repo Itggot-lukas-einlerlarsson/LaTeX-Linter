@@ -31,7 +31,7 @@ These rules are all applied under the '-j default' option. If you want to custom
   After . in a row, split off the row and add the remainder as the next line
   ex
   
-  	  volleyball....basketball. wienerdog. SPORTS.
+  	  volleyball.... basketball. wienerdog. SPORTS.
 	becomes:
 	  volleyball....
       basketball.
